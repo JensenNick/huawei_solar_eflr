@@ -46,12 +46,12 @@ template:
         {% set energinet_balancetarif = 0.24 %}
         {% set konstant_indfoedningstarif = 0.5 %}
         {% set jyskenergi_balancetarif = 2.5 %}  
-          {{ ( (
+          {{ (
           energinet_indfoedningstarif + 
           energinet_balancetarif + 
           konstant_indfoedningstarif + 
           jyskenergi_balancetarif 
-          ) / 100 ) }}
+          ) / 100 }}
 ```
 You need to alter the provided custom tariff export sensor to fit to your situation. Do not alter the name or unique id of the sensor.
 
