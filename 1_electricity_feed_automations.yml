@@ -1,0 +1,37 @@
+# Huawei Solar - EFLR
+# Electricity feed - Limit
+- id: 
+  alias: Electricity feed - Limit
+  description: Limit feed to grid when spotprice is less than costs
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.energi_data_service_spot
+    below: sensor.tariff_export
+  condition: []
+  action:
+  - service: huawei_solar.set_maximum_feed_grid_power
+    data:
+      power: '50'
+      device_id: 
+  - service: huawei_solar.set_maximum_feed_grid_power
+    data:
+      power: '50'
+      device_id: 
+  mode: single
+# Electricity feed - Reset
+- id: 
+  alias: Electricity feed - Reset
+  description: Reset feed to grid when spotprice is more than costs
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.energi_data_service_spot
+    above: sensor.tariff_export
+  condition: []
+  action:
+  - service: huawei_solar.reset_maximum_feed_grid_power
+    data:
+      device_id: 
+  - service: huawei_solar.reset_maximum_feed_grid_power
+    data:
+      device_id: 
+  mode: single
