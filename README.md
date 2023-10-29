@@ -92,22 +92,17 @@ Now you have a little bit of editing to do, so if you are not used to do this, t
 
 * **power:** With this value set at "50" you are letting the Huawei Solar PV to export up to 50 W of power. Power will always flow in one or the other direction, so by setting this value to e.g. 50 or 100 W you prevent the system from buying electricity. You can set this value to 0 W, at the risk that you may occasionally buy a small amount of electricity even with this automation in effect.
 
-* **device_id:** You have to find the device ID of you inverter and insert it here. The easiest way is to go to "Settings" / "Automations & scenes",click "Create automation" and "Create new automation". Click on "Add trigger" and choose "Device". In the "Device" dropdown menu, search for "Inverter" and chose your inverter. <br>
-<br>
+* **device_id:** You have to find the device ID of you inverter and insert it here. The easiest way is to go to "Settings" / "Automations & scenes",click "Create automation" and "Create new automation". Click on "Add trigger" and choose "Device". In the "Device" dropdown menu, search for "Inverter" and chose your inverter.<br>
 Now click on the three dots in the upper right corner of the window named "Trigger" and choose "Edit in YAML". Copy or note down your "device id". Do not save! Click on the "arrow back" in the upper left corner and click on "Leave".<br>
-<br>
 Now open the automations.yaml file again and paste your "device id" into the line that named "device_id:" with one spacing to the colon.
-
-<br>
-> :bulb: **Quick reload Home Assistant and refresh Your browser!**
-
-<br>
 
 ![Electricity Feed Automations](pictures/electricity_feed_automations.png)
 
 The provided automations are prepared for a setup with two inverters. If that is not the case for you, you can delete the lines marked with grey color. Pay attention not to delete the last line "mode: single".
 
 If you have two inverters (or more) you need to fill in the same lines as described above for each inverter in the greyed lines. If you have more than two inverters you can copy these lines and paste them in. Make sure you edit both automations.
+
+> :bulb: **Quick reload Home Assistant and refresh Your browser!**
 
 ### 2.4 Alternative to Tariff Export Sensor
 
