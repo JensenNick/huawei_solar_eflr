@@ -55,7 +55,7 @@ template:
 ```
 You need to alter the provided custom tariff export sensor to fit to your situation. Do not alter the name or unique id of the sensor.
 
-* Change the tariff cost / price after the equals sign "=" to fit your actual costs / prices. Do pay attention to that these costs / prices are in øre pr. kWh.
+* Change the tariff cost / price after the equals sign "=" to fit your actual costs / prices. Do pay attention to that these costs / prices are in øre pr. kWh / being divided by 100 in the formula.
 
 * Your net-, electricity- and yield-provider most likely is not the same as mine. You can (you do not have to) change the names or delete them, but make sure you do it both in the "set name" enclosed with {% "curly bracket + percent" %} and in the "formula" enclosed by the {{ "the double curly brackets" }} and that you do not alter the distance to the left margin.
 
