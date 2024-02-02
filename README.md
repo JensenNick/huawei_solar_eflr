@@ -89,7 +89,7 @@ Link to the power sensors [1_electricity_feed_automations.yml](1_electricity_fee
 
 Now you have a little bit of editing to do, so if you are not used to do this, take your time and make sure you get it right. This will save you a lot of headache. Below is a picture with the lines marked that you need to have a look at.
 
-* **id:** Give each automation an id. This will make it editable in the GUI. In Studio Code Server place your cursor on this line with one spacing to the colon, left click and choose "Generate UUID At Cursor". Repeat this steps for the other automation. Alternatively you can use the Extension Pack "Text Poewr Tools". Hold down Ctrl+Shift+P, search for GUID, choose "Generate random GUIDs", hit "Return", chose "No dashed" and hit "Return" twice.
+* **id:** I recomend that you leave the automations without an id. just set it leave id as `[]`. If you set an `id` the automation will become it editable in the GUI - but it will be rmoved from your package file and put in the file with all your other GUI autimations and make it harder to identify.
 
 * **power:** With this value set at "50" you are letting the Huawei Solar PV to export up to 50 W of power. Power will always flow in one or the other direction, so by setting this value to e.g. 50 or 100 W you prevent the system from buying electricity. You can set this value to 0 W, at the risk that you may occasionally buy a small amount of electricity even with this automation in effect.
 
