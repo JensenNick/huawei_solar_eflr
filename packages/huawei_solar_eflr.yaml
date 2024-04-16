@@ -1,0 +1,159 @@
+# ----------------------------------------------------
+# HUAWEI SOLAR EFLR - Electricity Feed Limit and Reset
+# ----------------------------------------------------
+# version: v0.0.5
+# domain: https://github.com/JensenNick/huawei_solar_eflr
+# codeowner: Nick Jensen
+#
+# This is a complete package file with the sensors included in the "Huawei Solar
+# EFLR package". For "installation" follow the steps in the README.
+#
+# -----------
+# AUTOMATIONS
+# -----------
+automation:
+  # ------------------------
+  # Electricity feed - Limit
+  - alias: Electricity feed - Limit
+    description: Limit feed to grid when spotprice is less than costs
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.energi_data_service_spot
+        below: sensor.tariff_export
+    condition: []
+    action:
+      - service: huawei_solar.set_maximum_feed_grid_power
+        data:
+          power: "<YOUR FEED IN LIMIT IN W>"
+          device_id: <YOUR DEVICE ID>
+      - service: huawei_solar.set_maximum_feed_grid_power
+        data:
+          power: "<YOUR FEED IN LIMIT IN W>"
+          device_id: <YOUR DEVICE ID>
+    mode: single
+  # ------------------------
+  # Electricity feed - Reset
+  - alias: Electricity feed - Reset
+    description: Reset feed to grid when spotprice is more than costs
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.energi_data_service_spot
+        above: sensor.tariff_export
+    condition: []
+    action:
+      - service: huawei_solar.reset_maximum_feed_grid_power
+        data:
+          device_id: <YOUR DEVICE ID>
+      - service: huawei_solar.reset_maximum_feed_grid_power
+        data:
+          device_id: <YOUR DEVICE ID>
+    mode: single
+# ----------------
+# TEMPLATE SENSORS
+# ----------------
+template:
+  - sensor:
+      ## -------------------------
+      ## Energy Yield incl Limited
+      - name: "Energy Yield incl Limited (ts)"
+        unique_id: energy_yield_incl_limited_ts
+        unit_of_measurement: kWh
+        device_class: energy
+        state: >
+          {{ states('sensor.energy_yield_total') | float(0) +
+          states('sensor.limited_energy') | float(0) }}
+  # ------------------------
+  # TEMPLATE TRIGGER SENSORS
+  # ------------------------
+  - trigger:
+      - platform: time_pattern
+        minutes: 59
+    sensor:
+      - name: "Energy Limited (tt)"
+        unique_id: energy_limited_tt
+        unit_of_measurement: kWh
+        device_class: energy
+        state: >
+          {% if states('sensor.energi_data_service_spot') | float(0) <
+          states('sensor.tariff_export') | float(0) %}
+            {{ (
+            state_attr('sensor.solcast_pv_forecast_forecast_today', 'detailedHourly') [now().hour] ['pv_estimate'] | float(0) -
+            states('sensor.hourly_yield_total_energy') | float(0)
+            , 0 ) | max }}
+          {% else %}
+            {{ 0 }}
+          {% endif %}
+# --------------
+# UTILITY METERS
+# --------------
+utility_meter:
+  ## --------------
+  ## Energy Limited
+  energy_limited:
+    source: sensor.energy_limited_tt
+    name: "Energy Limited"
+    unique_id: energy_limited
+    delta_values: true
+  ## Energy Limited w Cycle
+  hourly_limited_energy:
+    source: sensor.energy_limited
+    name: "Hourly Limited Energy"
+    unique_id: hourly_limited_energy
+    cycle: hourly
+  daily_limited_energy:
+    source: sensor.energy_limited
+    name: "Daily Limited Energy"
+    unique_id: daily_limited_energy
+    cycle: daily
+  weekly_limited_energy:
+    source: sensor.energy_limited
+    name: "Weekly Limited Energy"
+    unique_id: weekly_limited_energy
+    cycle: weekly
+  monthly_limited_energy:
+    source: sensor.energy_limited
+    name: "Monthly Limited Energy"
+    unique_id: monthly_limited_energy
+    cycle: monthly
+  quarterly_limited_energy:
+    source: sensor.energy_limited
+    name: "Quarterly Limited Energy"
+    unique_id: quarterly_limited_energy
+    cycle: quarterly
+  yearly_limited_energy:
+    source: sensor.energy_limited
+    name: "Yearly Limited Energy"
+    unique_id: yearly_limited_energy
+    cycle: yearly
+  ## --------------------------------
+  ## Energy Yield incl Energy Limited
+  hourly_yield_incl_limited_energy:
+    source: sensor.energy_yield_incl_limited_ts
+    name: "Hourly Yield incl Limited Energy"
+    unique_id: hourly_yield_incl_limited_energy
+    cycle: hourly
+  daily_yield_incl_limited_energy:
+    source: sensor.energy_yield_incl_limited_ts
+    name: "Daily Yield incl Limited Energy"
+    unique_id: daily_yield_incl_limited_energy
+    cycle: daily
+  weekly_yield_incl_limited_energy:
+    source: sensor.energy_yield_incl_limited_ts
+    name: "Weekly Yield incl Limited Energy"
+    unique_id: weekly_yield_incl_limited_energy
+    cycle: weekly
+  monthly_yield_incl_limited_energy:
+    source: sensor.energy_yield_incl_limited_ts
+    name: "Monthly Yield incl Limited Energy"
+    unique_id: monthly_yield_incl_limited_energy
+    cycle: monthly
+  quarterly_yield_incl_limited_energy:
+    source: sensor.energy_yield_incl_limited_ts
+    name: "Quarterly Yield incl Limited Energy"
+    unique_id: quarterly_yield_incl_limited_energy
+    cycle: quarterly
+  yearly_yield_incl_limited_energy:
+    source: sensor.energy_yield_incl_limited_ts
+    name: "Yearly Yield incl Limited Energy"
+    unique_id: yearly_yield_incl_limited_energy
+    cycle: yearly
