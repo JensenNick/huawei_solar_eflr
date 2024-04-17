@@ -3,9 +3,9 @@
 Electricity Feed Limit and Reset
 
 ## Project Description
-This project will provide you with a couple of automations to be used in Home Assistant. These automations will, based on the current electricity spot price, limit your feed to the grid when it is not profitable to sell your yield and reset the feed to grid once the spot price raises above your lower limit for profitable export
+This project will provide you with a set of custom sensors also referred to as the "Huawei Solar EFLR package" to be used in Home Assistant. The package include automations used to limit your feed to grid and reset the feed automatically, based on the current electricity spot price and the price you get for export. This is usefull when it is not profitable to export your solar PV production. The package also includes custom sensors which registers how much solar PV production you have limited and the total of production plus limited solar PV, based on your solar PV forecast.
 
-This README includes a guide on how to set op these automations and necessary sensors up in Home Assistant for your Huawei Solar PV system.
+This README includes a guide on how to set up these automations and necessary sensors up in Home Assistant for your Huawei Solar PV system.
 
 ## Table of Content
 1. Before You Start
@@ -13,12 +13,14 @@ This README includes a guide on how to set op these automations and necessary se
 1. Known "bugs"
 1. Thanks to
 
-
 ## 1. Before You Start
 The custom sensors are all based on only 3 of the power sensors provided by the "Huawei Solar" custom integration by wlcrs - so the margin for error is minimized. You obviously also need a sensor to provide you with the current electrical spot price. I use the "Energi Data Service" custom integration provided by MTrab. The following custom integrations needs to be installed in Home Assistant before you start. Both of the integrations can be installed via HACS.
 
 * **Huawei Solar** integration by wlcrs https://github.com/wlcrs/huawei_solar
 * **Energi Data Service** integration by MTrab (or similar integration to fetch the current electricity spot price) https://github.com/MTrab/energidataservice
+* **Solacast PV Forcast** integration by oziee https://github.com/oziee/ha-solcast-solar
+* **Huawei Solar PEES package** by JensenNick https://github.com/JensenNick/huawei_solar_pees
+
 
 You also need an editor in Home Assistant in order to be able to edit your configurations.yaml file. I use Studio Code Server (Visual Studio Code) as an Add-on in Home Assistant.
 
