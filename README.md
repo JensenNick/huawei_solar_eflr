@@ -2,7 +2,7 @@
 # Huawei Solar - EFLR
 Electricity Feed Limit and Reset
 
-## exclamation: This repository and README is under revision exclamation:
+## !!! This repository and README is under heavy revision !!!
 
 ## Project Description
 This project will provide you with a set of custom sensors also referred to as the "Huawei Solar EFLR package" to be used in Home Assistant. The package include automations used to limit your feed to grid and reset the feed automatically, based on the current electricity spot price and the price you get for export. This is usefull when it is not profitable to export your solar PV production. The package also includes custom sensors which registers how much solar PV production you have limited and the total of production plus limited solar PV, based on your solar PV forecast.
